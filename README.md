@@ -25,7 +25,7 @@ En desarrollo. Por ahora cuenta con la estructura inicial: proyecto creado con V
 1. Clonar el repositorio:
 
 ```
-git clone https://github.com/usuario/tienda-de-libros.git
+git clone https://github.com/gercur394/tienda-de-libros.git
 ```
 
 2. Entrar en la carpeta del proyecto:
