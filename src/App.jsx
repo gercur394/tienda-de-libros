@@ -1,14 +1,15 @@
+import Navbar from "./components/Navbar"
+import ItemListContainer from "./components/ItemListContainer"
+
 function App() {
 
   return (
-    
-      <section>      
-          <h1>Tienda de Libros</h1>
-          <p>
-            Donde encontras tus libros
-          </p>
-      </section>
-    
+    <>
+      <Navbar />
+      <main>
+         <ItemListContainer greeting="¡Bienvenidos a la tienda de tus libros!" />
+      </main>
+    </> 
   )
 }
 export default App
