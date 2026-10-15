@@ -1,0 +1,21 @@
+.navcss{ 
+    display: flex;
+    justify-content: space-between;
+    background-color: brown;
+    align-items: center;
+    padding: 10px;
+    height: 80px;
+}
+
+.titulo{
+    color: rgb(191, 203, 30);
+}
+
+.lista{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    color: rgb(251, 251, 33);
+    flex-wrap:wrap;
+
+}
