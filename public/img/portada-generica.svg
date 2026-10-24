@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 300">
+  <!-- Fondo marrón, a tono con la Navbar -->
+  <rect width="200" height="300" fill="#a52a2a"/>
+  <!-- Marco decorativo -->
+  <rect x="14" y="14" width="172" height="272" fill="none" stroke="#e9c98f" stroke-width="3"/>
+  <!-- Un libro abierto muy simple -->
+  <path d="M40 130 L100 150 L160 130 L160 200 L100 220 L40 200 Z" fill="#fffaf5"/>
+  <line x1="100" y1="150" x2="100" y2="220" stroke="#a52a2a" stroke-width="3"/>
+  <!-- Texto de reemplazo -->
+  <text x="100" y="262" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#fffaf5">Portada no disponible</text>
+</svg>
