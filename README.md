@@ -4,7 +4,9 @@ Tienda de Libros es un e-commerce de libros desarrollado con React. Este reposit
 
 ## Estado del proyecto
 
-En desarrollo. Hasta ahora cuenta con el layout base (barra de navegación con categorías y widget de carrito) y con el listado de productos, que se carga de forma asíncrona a partir de datos simulados.
+En desarrollo. Hasta ahora cuenta con el layout base (barra de navegación con categorías y widget de carrito), el listado de productos cargado de forma asíncrona y la vista de detalle de un producto, con un contador de cantidad que respeta el stock.
+
+Mientras no existan rutas, `App.jsx` muestra de forma temporal el detalle de un único producto, con el `id` escrito directamente en el código. El listado (`ItemListContainer`) sigue disponible en el proyecto y volverá a mostrarse cuando se incorpore la navegación.
 
 ## Tecnologías utilizadas
 
@@ -20,28 +22,37 @@ En desarrollo. Hasta ahora cuenta con el layout base (barra de navegación con c
 
 Todos los componentes viven en `src/components`, cada uno en su propio archivo y con una única responsabilidad.
 
-- **Navbar:** barra de navegación. Muestra el nombre de la tienda, las categorías de libros (Filosofía, Historia, Religión y espiritualidad, Divulgación científica, Autoconocimiento, Ciencia ficción y Novela) generadas con `.map()` a partir de un array, y el componente `CartWidget`. Sus estilos están en `Navbar.css`.
-- **CartWidget:** ícono de carrito con un número que representa la cantidad de ítems. Por ahora el número es fijo (hardcodeado).
-- **ItemListContainer:** contenedor de la sección principal. Recibe un mensaje de bienvenida mediante la prop `greeting`, pide los productos y los guarda en el estado `items`. No recorre la lista: esa tarea le corresponde a `ItemList`.
-- **ItemList:** recibe el array de productos por props y usa `.map()` para renderizar un componente `Item` por cada producto, usando el `id` del producto como `key`. Sus estilos (grilla responsive) están en `ItemList.css`.
-- **Item:** recibe un producto por props y muestra su card: imagen, nombre, descripción y precio. Se encarga únicamente de la presentación visual. Sus estilos están en `Item.css`.
+**Layout**
 
-`App.jsx` ensambla la `Navbar` y el `ItemListContainer`, y le pasa el mensaje de bienvenida a este último.
+- **Navbar:** barra de navegación con el nombre de la tienda, las categorías de libros (generadas con `.map()` a partir de un array) y el componente `CartWidget`.
+- **CartWidget:** ícono de carrito con un número fijo (hardcodeado) que representa la cantidad de ítems.
+
+**Listado de productos**
+
+- **ItemListContainer:** pide los productos, los guarda en el estado `items` y recibe un mensaje de bienvenida por la prop `greeting`. No recorre la lista.
+- **ItemList:** recibe los productos por props y usa `.map()` para renderizar un `Item` por cada uno, usando el `id` como `key`.
+- **Item:** card de un producto. Muestra solo la información resumida: imagen, nombre, categoría y precio.
+
+**Detalle de producto**
+
+- **ItemDetailContainer:** recibe por props el `id` del producto, lo busca con `getProductById` dentro de un `useEffect` y guarda el resultado en un estado. Maneja tres situaciones: cargando, error (producto inexistente) y producto listo. No contiene el diseño del detalle.
+- **ItemDetail:** componente de presentación. Recibe un producto por props y muestra la información completa en dos sectores: la imagen y un bloque con categoría, nombre, precio, descripción completa y stock disponible. Incluye el contador, o el aviso "Sin stock" si no quedan unidades.
+- **ItemCount:** contador reutilizable. Recibe el stock por props (no está escrito dentro del componente), no permite superar el stock ni bajar de cero, y ejecuta la función `onAdd` con la cantidad elegida al presionar "Agregar al carrito".
 
 ## Simulación de la carga de datos
 
-Todavía no hay una API real, por lo que la carga de productos se simula en el archivo `src/mock/asyncMock.js`:
+Todavía no hay una API real, por lo que los datos se simulan en `src/mock/asyncMock.js`:
 
-1. El archivo contiene un array `products` con los libros de la tienda. Cada producto tiene `id`, `name`, `price`, `category`, `img`, `stock` y `description`. Los datos son de ejemplo.
-2. La función `getProducts` devuelve una **Promise** que usa `setTimeout` para resolverse a los **2 segundos** con ese array. Así se imita la demora de una petición a un servidor.
-3. En `ItemListContainer`, un `useEffect` con el array de dependencias vacío (`[]`) llama a `getProducts` **una sola vez, al montarse el componente**, mediante una función `async` con `await`.
-4. Cuando la promesa se cumple, los productos se guardan en el estado `items` (inicializado como array vacío) con el setter de `useState`, y React vuelve a renderizar el listado.
+1. El archivo contiene un array `products` con los libros de la tienda. Cada producto tiene `id`, `name`, `price`, `category`, `img`, `stock` y `description`. Los datos son de ejemplo, y todas las portadas apuntan, por ahora, a una imagen genérica (`public/img/portada-generica.svg`).
+2. **`getProducts`** devuelve una **Promise** que se resuelve a los 2 segundos con el array completo, usando `setTimeout`. Se llama desde `ItemListContainer`, en un `useEffect` con array de dependencias vacío, mediante una función `async` con `await`.
+3. **`getProductById(productId)`** recibe un `id` y devuelve una **Promise** que, tras 500 ms, busca el producto con `find` por su propiedad `id`. Si lo encuentra, resuelve la promesa con ese producto. Si no existe, la rechaza con un error ("Producto no encontrado"), que `ItemDetailContainer` atrapa con `try/catch`.
+4. En ambos casos, el resultado se guarda con el setter de `useState` y React vuelve a renderizar.
 
 Flujo de los datos:
 
 ```
-getProducts → ItemListContainer → ItemList → Item
- (la promesa)   (pide y guarda)    (.map)     (card)
+getProducts    → ItemListContainer   → ItemList → Item
+getProductById → ItemDetailContainer → ItemDetail → ItemCount
 ```
 
 Cuando el proyecto se conecte a una base de datos real, solo cambiará el origen de los datos.
@@ -84,11 +95,18 @@ npm run dev
 ```
 tienda-de-libros/
 ├── public/
+│   └── img/
+│       └── portada-generica.svg
 ├── src/
 │   ├── components/
 │   │   ├── CartWidget.jsx
 │   │   ├── Item.css
 │   │   ├── Item.jsx
+│   │   ├── ItemCount.css
+│   │   ├── ItemCount.jsx
+│   │   ├── ItemDetail.css
+│   │   ├── ItemDetail.jsx
+│   │   ├── ItemDetailContainer.jsx
 │   │   ├── ItemList.css
 │   │   ├── ItemList.jsx
 │   │   ├── ItemListContainer.jsx

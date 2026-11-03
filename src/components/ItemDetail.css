@@ -1,0 +1,58 @@
+/* La ficha completa: dos sectores, imagen e información */
+.item-detail {
+  display: grid;
+  /* Dos columnas si entran (mínimo 280px cada una); si no, una sola */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 900px;
+  margin: 32px auto;        /* centra la ficha y le da aire arriba y abajo */
+  padding: 24px;
+  background-color: #fffaf5;
+  border: 1px solid #d9c7b8;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Sector 1: la imagen, con un tamaño máximo para que no se agigante */
+.item-detail-image {
+  max-width: 320px;
+  justify-self: center;
+}
+
+.item-detail-image img {
+  width: 100%;
+  aspect-ratio: 2 / 3;      /* proporción de portada, igual que en las cards */
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #eadfd3;
+}
+
+/* Sector 2: la información, apilada en vertical */
+.item-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-detail-category {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8a6d57;
+}
+
+.item-detail-price {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: brown;
+}
+
+.item-detail-stock {
+  font-size: 0.9rem;
+  color: #6b5b4d;
+}
+
+.item-detail-nostock {
+  font-weight: bold;
+  color: #b00020;
+}

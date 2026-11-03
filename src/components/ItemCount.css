@@ -1,0 +1,39 @@
+/* El contador completo */
+.item-count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* evita que el botón de agregar ocupe todo el ancho */
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* La fila "- cantidad +" */
+.item-count-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.item-count-controls span {
+  min-width: 2ch;            /* reserva espacio para que no "salte" al pasar de 9 a 10 */
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Todos los botones del contador */
+.item-count button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: brown;
+  color: #fffaf5;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Botones deshabilitados: se ven apagados y no parecen clickeables */
+.item-count button:disabled {
+  background-color: #c9b8a8;
+  cursor: not-allowed;
+}
