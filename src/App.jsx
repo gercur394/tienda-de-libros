@@ -1,5 +1,7 @@
 import Navbar from "./components/Navbar"
 import ItemListContainer from "./components/ItemListContainer"
+import ItemDetailContainer from "./components/ItemDetailContainer"
+
 
 function App() {
 
@@ -7,7 +9,7 @@ function App() {
     <>
       <Navbar />
       <main>
-         <ItemListContainer greeting="¡Bienvenidos a la tienda de tus libros!" />
+         <ItemDetailContainer productId={5} />
       </main>
     </> 
   )
