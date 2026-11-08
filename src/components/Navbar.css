@@ -18,3 +18,16 @@
     flex-wrap:wrap;
 
 }
+
+/* Los links heredan el color de la barra y pierden el subrayado */
+.titulo a,
+.lista a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* El link de la página actual (NavLink le agrega la clase "active") */
+.lista a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

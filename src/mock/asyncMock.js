@@ -1,3 +1,5 @@
+import { slugify } from "../utils/slugify"
+
 const PORTADA_GENERICA = "/img/portada-generica.svg"
 
 // Simula la "base de datos" de la tienda y la demora de una API real.
@@ -76,13 +78,19 @@ const products = [
   },
 ]
 
-// getProducts simula pedirle los productos a un servidor.
-// Devuelve una PROMISE: una "promesa" de que el dato va a llegar más tarde.
-export const getProducts = () => {
+// Ahora getProducts recibe, opcionalmente, el "slug" de una categoría.
+// Si llega, devuelve solo los libros de esa categoría; si no, todos.
+export const getProducts = (categorySlug) => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(products)
-    }, 2000)
+      if (categorySlug) {
+        // filter se queda con los productos que cumplen la condición.
+        // Comparamos el slug de la categoría de cada libro con el de la URL.
+        resolve(products.filter((p) => slugify(p.category) === categorySlug))
+      } else {
+        resolve(products)
+      }
+    }, 1000)
   })
 }
 
