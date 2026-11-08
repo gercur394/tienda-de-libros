@@ -1,36 +1,40 @@
 import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { getProductById } from "../mock/asyncMock"
 import ItemDetail from "./ItemDetail"
 
-// Recibe por props el id del producto que hay que mostrar.
-function ItemDetailContainer({ productId }) {
-  // Tres estados, uno por cada cosa que puede pasar:
-  const [product, setProduct] = useState(null)   // el libro (todavía no llegó)
-  const [loading, setLoading] = useState(true)   // arranca "cargando"
-  const [error, setError] = useState(null)       // sin error al principio
+function ItemDetailContainer() {
+  // El id viene de la URL: en /item/5, id vale "5"
+  const { id } = useParams()
+
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const cargarProducto = async () => {
+      // Antes de cada pedido, limpiamos lo anterior
+      setLoading(true)
+      setError(null)
+
       try {
-        const data = await getProductById(productId)
+        // Number(id) convierte el texto "5" en el número 5.
+        // La URL siempre entrega texto, pero los ids de tus productos son números.
+        const data = await getProductById(Number(id))
         setProduct(data)
       } catch (err) {
         setError(err.message)
       } finally {
-        // "finally" se ejecuta siempre, salga bien o mal:
-        // en ambos casos terminó la espera.
         setLoading(false)
       }
     }
 
     cargarProducto()
-  }, [productId])
+  }, [id]) // se vuelve a ejecutar si cambia el id de la URL
 
-  // Según el estado, mostramos una cosa u otra.
   if (loading) return <p>Cargando...</p>
   if (error) return <p>{error}</p>
 
-  // Si llegamos acá, hay un producto: se lo pasamos a ItemDetail por props.
   return <ItemDetail product={product} />
 }
 
