@@ -31,3 +31,9 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+/* El ícono del carrito es un link: que herede el color y no se subraye */
+.cart-link {
+  color: inherit;
+  text-decoration: none;
+}

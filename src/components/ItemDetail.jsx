@@ -1,11 +1,15 @@
 import ItemCount from "./ItemCount"
 import "./ItemDetail.css"
+import { useCart } from "../context/CartContext"
 
-// Componente de PRESENTACIÓN: recibe un producto por props y lo muestra.
 function ItemDetail({ product }) {
-  // Esta función se le pasa a ItemCount como "onAdd".
+  // Abrimos la canilla y sacamos solo la palanca que necesitamos
+  const { addItem } = useCart()
+
+  // ItemCount llama a esta función con la cantidad elegida.
+  // "product" es el libro completo; addItem le suma el campo "quantity".
   const handleAdd = (quantity) => {
-    console.log(`Agregado: ${quantity} x ${product.name}`)
+    addItem(product, quantity)
   }
 
   return (
