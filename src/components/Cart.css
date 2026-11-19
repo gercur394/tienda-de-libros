@@ -1,0 +1,106 @@
+/* Contenedor de toda la vista del carrito */
+.cart {
+  max-width: 800px;
+  margin: 32px auto;        /* centrado, con aire arriba y abajo */
+  padding: 24px;
+  background-color: #fffaf5;
+  border: 1px solid #d9c7b8;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.cart h2 {
+  margin-bottom: 16px;
+}
+
+/* El link "Ver el catálogo" del carrito vacío */
+.cart > a {
+  display: inline-block;
+  margin-top: 12px;
+  color: brown;
+  font-weight: bold;
+}
+
+/* La lista: sin viñetas ni sangría, filas apiladas */
+.cart-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Cada fila: imagen, información y botón en línea */
+.cart-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;           /* en pantallas angostas, pasan a la línea de abajo */
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d9c7b8;
+}
+
+.cart-item img {
+  width: 80px;
+  aspect-ratio: 2 / 3;       /* misma proporción de portada que en las cards */
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #eadfd3;
+}
+
+/* La información ocupa el espacio sobrante entre la imagen y el botón */
+.cart-item-info {
+  flex: 1;
+  min-width: 180px;
+}
+
+.cart-item-info h3 {
+  margin-bottom: 4px;
+}
+
+.cart-item-info p {
+  font-size: 0.9rem;
+}
+
+/* El total, resaltado y alineado a la derecha */
+.cart-total {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: brown;
+}
+
+/* Botones de acción debajo del total */
+.cart-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.cart-actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: brown;
+  color: #fffaf5;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* El botón "Eliminar" de cada fila: versión discreta, solo con borde */
+.cart-item button {
+  padding: 8px 14px;
+  border: 1px solid brown;
+  border-radius: 6px;
+  background-color: transparent;
+  color: brown;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background-color: brown;
+  color: #fffaf5;
+}
